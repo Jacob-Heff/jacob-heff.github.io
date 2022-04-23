@@ -33,22 +33,23 @@ h2 {
 button {
     background-color: transparent;
     background-repeat: no-repeat;
-	border: 2px solid #e7e7e7;
+	border: 2px solid #000;
 	border-radius: 5px;
     cursor: pointer;
     overflow: hidden;
+	color:inherit;
     outline: none;
 	font-size: 20px;
-	color: #fff;
-	opacity: 0.4;
+	opacity: 0.6;
 	margin: 0;
 	padding: 10px;
 	font: inherit;
 	line-height: auto;
+	border-color:inherit;
 }
 
 button:hover {
-	opacity: 0.6;
+	opacity: 0.8;
 }
 
 @media (max-width: 700px) {
