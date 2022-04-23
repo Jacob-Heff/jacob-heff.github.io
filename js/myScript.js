@@ -40,7 +40,6 @@ function setBgGreet() {
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "center bottom";
     document.body.style.color = "#000";
-	document.button.style.color="fff";
     greeting.textContent = "Good Morning, ";
   }
   else if(hour < 18) {
@@ -58,7 +57,6 @@ function setBgGreet() {
     document.body.style.backgroundAttachment = "fixed";
     document.body.style.backgroundPosition = "top center";
     document.body.style.color = "#fff";
-	document.button.style.color="fff";
     greeting.textContent = "Good Evening, ";
   }
 }
