@@ -1,0 +1,35 @@
+* { box-sizing: border-box; }
+body { background-color: hsl(217, 54%, 11%);
+	   margin: 0;
+}
+#wrapper {  background-color: hsl(216, 50%, 16%);
+		font-size: 18px;
+		color: hsl(215, 51%, 70%);
+		padding: 20px;
+		margin-right: auto; /* 1 */
+  		margin-left:  auto; /* 1 */
+		margin-top: 50px;
+		margin-bottom: 50px;
+	      max-width: 344px;
+		border-radius: 30px;
+} 
+
+header { color: hsl(0, 0%, 100%); 
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.image {
+  flex-basis: 7%;
+}
+
+footer {font-size:70%;
+	  color: hsl(0, 0%, 100%);
+         text-align: center;
+         padding: 10px;
+	   clear: both;
+}

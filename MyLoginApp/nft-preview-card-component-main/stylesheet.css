@@ -1,0 +1,14 @@
+body {text-size:18;
+}
+
+p.normal {
+  font-weight: 300;
+}
+
+p.thick {
+  font-weight: 400;
+}
+
+p.thicker {
+  font-weight: 600;
+}
