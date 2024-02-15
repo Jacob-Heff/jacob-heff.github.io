@@ -4139,9 +4139,9 @@ textarea.form-control-lg {
 }
 
 .navbar-dark {
-  --bs-navbar-color: bs-blue;
-  --bs-navbar-hover-color: bs-blue;
-  --bs-navbar-disabled-color: bs-blue;
+  --bs-navbar-color: rgba(0, 0, 255, 0.55);
+  --bs-navbar-hover-color: rgba(0, 0, 255, 0.75);
+  --bs-navbar-disabled-color: rgba(0, 0, 255, 0.25);
   --bs-navbar-active-color: #fff;
   --bs-navbar-brand-color: #fff;
   --bs-navbar-brand-hover-color: #fff;
