@@ -4,6 +4,17 @@ export default class {
     */
     constructor(root) {
         this.root = root;
-        console.log("I am constructed!");
+    }
+
+    /**
+     * Set the table headers.
+     * @param {string[]} headerColumns List of headings to be used
+     */
+    setHeader(headerColumns) {
+        this.root.insertAdjacentHTML("afterbegin",  `
+            <thead>
+                $(headerColumns.map(text => `<th>${text}</th>`).join(''))
+            </thead>
+            `);
     }
 }
