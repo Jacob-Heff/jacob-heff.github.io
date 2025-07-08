@@ -1,5 +1,8 @@
 <!--
-  GITHUB PAGES DEPLOYMENT OPTIMIZATIONS:
+  GITHUB PAGES DEPLOYMENT OPTIMIZA    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"></noscript>NS:
   
   ✅ Applied optimizations:
   - Content Security Policy (CSP) meta tag
@@ -27,7 +30,7 @@
     <meta name="description" content="A modern, secure Kanban-style task manager with workspace support, drag-and-drop functionality, advanced filtering, and client-side encryption. Organize your tasks efficiently with multiple security levels and collaborative features." />
     
     <!-- Content Security Policy for enhanced security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'self';">>>
     
     <!-- Cache optimization hints (GitHub Pages will use default cache settings) -->
     <meta http-equiv="Cache-Control" content="public, max-age=3600">
@@ -36,15 +39,11 @@
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
+    <!-- Font loading optimization - CSP compliant -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"></noscript>
-    
-    <!-- Fallback font declaration to prevent layout shifts -->
-    <style>
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
-    </style>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" media="all">
     
     <link
       rel="icon"
@@ -57,7 +56,7 @@
     <link rel="manifest" href="manifest.json">
     
     <!-- PWA iOS Support -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Task Manager">
     <link rel="apple-touch-icon" href="resources/favicon.ico">
@@ -66,8 +65,7 @@
     <meta name="msapplication-TileColor" content="#191B1F">
     <meta name="msapplication-config" content="browserconfig.xml">
     
-    <link rel="stylesheet" href="css/styles.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="css/styles.css"></noscript>
+    <link rel="stylesheet" href="css/styles.css">
 
     <title>Task Manager App | devChallenges.io</title>
     
@@ -97,7 +95,7 @@
   </head>
   <body>
     <!-- Floating Toggle Button (visible when sidebar is collapsed) -->
-    <button class="floating-toggle" id="floatingToggle" style="display: none;" aria-label="Show sidebar">☰</button>
+    <button class="floating-toggle" id="floatingToggle" aria-label="Show sidebar">☰</button>
     
     <!-- Sidebar -->
     <aside class="sidebar" role="complementary" aria-label="Task management controls">
@@ -141,7 +139,7 @@
               <span class="btn-icon">📤</span>
               <span class="btn-text">Export Tasks</span>
             </button>
-            <input type="file" id="sidebarImportInput" accept=".json" style="display: none;">
+            <input type="file" id="sidebarImportInput" accept=".json">
             <button id="sidebarImportBtn" class="sidebar-btn" title="Import Data">
               <span class="btn-icon">📥</span>
               <span class="btn-text">Import Tasks</span>
@@ -293,7 +291,7 @@
     </main>
 
     <!-- Custom Confirmation Modal -->
-    <div class="modal-overlay" id="confirmModal" style="display: none;" role="dialog" aria-labelledby="confirmModalTitle" aria-modal="true">
+    <div class="modal-overlay" id="confirmModal" role="dialog" aria-labelledby="confirmModalTitle" aria-modal="true">
       <div class="modal-dialog">
         <div class="modal-header">
           <h2 id="confirmModalTitle">Confirm Action</h2>
@@ -310,7 +308,7 @@
     </div>
 
     <!-- Custom Alert Modal -->
-    <div class="modal-overlay" id="alertModal" style="display: none;" role="dialog" aria-labelledby="alertModalTitle" aria-modal="true">
+    <div class="modal-overlay" id="alertModal" role="dialog" aria-labelledby="alertModalTitle" aria-modal="true">
       <div class="modal-dialog">
         <div class="modal-header">
           <h2 id="alertModalTitle">Information</h2>
@@ -326,21 +324,7 @@
     </div>
 
     <script src="js/script.js" defer></script>
-
-    <!-- Service Worker Registration for GitHub Pages Caching -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
-            });
-        });
-      }
-    </script>
+    <script src="js/sw-register.js" defer></script>
 
     <footer>
       <div class="author-info">

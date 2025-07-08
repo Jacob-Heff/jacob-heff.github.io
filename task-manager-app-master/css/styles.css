@@ -64,6 +64,13 @@ body {
   font-display: swap;
 }
 
+/* Font face declaration for faster loading */
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('system-ui'), local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI');
+  font-display: swap;
+}
+
 /* ======================================================
    SIDEBAR STYLES
    ====================================================== */
@@ -1110,4 +1117,21 @@ footer {
 
 .filter-option {
   min-height: 32px;
+}
+
+/* Hidden by default elements */
+.floating-toggle,
+#sidebarImportInput,
+.modal-overlay {
+  display: none;
+}
+
+/* Show floating toggle when needed */
+.floating-toggle.show {
+  display: flex;
+}
+
+/* Show modals when active */
+.modal-overlay.active {
+  display: block;
 }
