@@ -98,6 +98,13 @@
         height: 100px;
         opacity: 0.5;
       }
+      
+      p {
+        /* Text styling options */
+        font-family: 'Kanit', 'Arial', sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+      }
 
       button {
         background-color: #4f46e5;
@@ -109,6 +116,8 @@
         font-family: 'Kanit', 'Arial', sans-serif;
         font-weight: 600;
         font-size: 20px;
+        /* Button Shadow */
+        box-shadow: 0px 4px 0px 0px #23649b;
       }
       
       button:hover {
@@ -119,7 +128,7 @@
   <body>
     <div style="height: 40px"></div>
     <h1>Flip the Coin</h1>
-    <h2 style="text-align: center; margin-top: 10px">Press the coin or the button to flip the coin</h2>
+    <h2>Press the coin or the button to flip the coin</h2>
     <div style="height: 60px"></div>
     <div class="coin">
       <img src="resources/heads.svg" alt="Coin Head" />
@@ -130,7 +139,7 @@
       <img src="resources/shadow.svg" alt="Coin Shadow" />
     </div>
     <div style="height: 40px"></div>
-    <p class="heads-or-tails" style="text-align: center; margin-top: 10px">
+    <p class="heads-or-tails">
       Heads
     </p>
     <div style="height: 60px"></div>
@@ -157,7 +166,7 @@
       button.addEventListener('click', flipCoin);
       coin.addEventListener('click', flipCoin);
     </script>
-    <button style="display: none;">Random</button>
+    <button style="display: none;">RANDOM</button>
 
     <div class="author-info">
       Coded by <a href="#">Your Name Here</a> | Challenge by
