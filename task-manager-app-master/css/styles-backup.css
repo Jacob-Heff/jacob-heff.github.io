@@ -1,0 +1,1402 @@
+/* CSS Custom Properties for consistent theming and accessibility */
+:root {
+  --primary-color: #3b82f6;
+  --primary-light: rgba(59, 130, 246, 0.1);
+  --background-color: #191B1F;
+  --sidebar-bg: #20252B;
+  --card-bg: #21262D;
+  --border-color: #30363D;
+  --text-color: #ffffff; /* Improved contrast from #f0f6fc */
+  --text-secondary: #ffffff; /* Maximum contrast for secondary text */
+  --text-muted: #e6e6e6; /* Lighter but still high contrast muted text */
+  --success-color: #238636;
+  --danger-color: #da3633;
+  --input-bg: #21262D;
+}
+
+/* ======================================================
+   PERFORMANCE OPTIMIZATIONS & ACCESSIBILITY IMPROVEMENTS
+   ====================================================== */
+
+/* Prevent layout shifts and improve rendering performance */
+.tasks-container {
+  min-height: 120px; /* Prevent layout shift when tasks are loaded */
+  transition: none; /* Remove transitions that could cause layout shifts */
+  contain: layout style; /* Isolate rendering changes */
+}
+
+.task-card {
+  min-height: 90px; /* Consistent minimum height for stability */
+  transform: translateZ(0); /* Enable hardware acceleration */
+  will-change: transform; /* Optimize for transforms during drag */
+  contain: layout; /* Isolate task card layout changes */
+}
+
+.modal-overlay {
+  transform: translateZ(0); /* Hardware acceleration for modals */
+  contain: layout; /* Isolate modal rendering */
+}
+
+.board-column {
+  contain: layout style; /* Contain layout changes within columns */
+  min-height: calc(100vh - 180px); /* Ensure consistent height */
+}
+
+/* Main content stability improvements */
+.main-content {
+  min-height: 100vh; /* Prevent height changes that cause layout shifts */
+  contain: layout; /* Isolate layout changes to main content */
+}
+
+.sidebar {
+  min-height: 100vh; /* Consistent sidebar height */
+  contain: layout; /* Isolate sidebar layout changes */
+}
+
+/* Board container stability */
+.board-container {
+  min-height: calc(100vh - 140px); /* Consistent container height */
+}
+
+/* Global scrollbar hiding and overflow control */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern scrollbar styling instead of hiding */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #484F58;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #30363D transparent;
+}
+
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #191B1F;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-display: swap; /* Use fallback font while custom font loads */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 320px;
+  background-color: #20252B;
+  border-right: 1px solid #30363D;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Add shadow to prevent edge bleeding */
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Floating Toggle Button (appears when sidebar is collapsed) */
+.floating-toggle {
+  position: fixed;
+  left: 10px;
+  top: 20px;
+  background-color: #20252B;
+  color: #f0f6fc;
+  border: 1px solid #30363D;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1002;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  min-width: 48px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  display: none; /* Hidden by default, will be set to flex when shown */
+}
+
+.floating-toggle:hover {
+  background-color: #30363d;
+  transform: scale(1.05);
+}
+
+/* Add a subtle pulse animation to make the floating button more noticeable */
+@keyframes subtle-pulse {
+  0%, 100% {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 2px 2px 12px rgba(88, 166, 255, 0.4);
+  }
+}
+
+.floating-toggle.show {
+  display: flex;
+  animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  box-shadow: none; /* Remove shadow when collapsed to prevent bleeding */
+}
+
+/* Hide sidebar content when collapsed but keep the toggle button */
+.sidebar.collapsed .sidebar-content {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.sidebar.collapsed .sidebar-header {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #30363D;
+  background-color: #1c2128;
+}
+
+.sidebar-title {
+  font-family: "DM Sans";
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #ecedf0;
+  margin: 0;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: #f0f6fc;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-toggle:hover {
+  background-color: #30363d;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal overflow in sidebar */
+  padding: 0;
+  /* Show slim scrollbar for better UX */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #30363D transparent;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px; /* Slim scrollbar */
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: #484F58;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-section {
+  border-bottom: 1px solid #30363D;
+  padding: 20px;
+}
+
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-family: "DM Sans";
+  font-weight: 600;
+  font-size: 1rem;
+  color: #f0f6fc;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.options-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.sidebar-btn:hover {
+  background-color: #30363d;
+  border-color: #8b949e;
+}
+
+.sidebar-btn.danger {
+  background-color: #da3633;
+  border-color: #f85149;
+}
+
+.sidebar-btn.danger:hover {
+  background-color: #f85149;
+}
+
+.sidebar-btn.secondary {
+  background-color: #373e47;
+  border-color: #444c56;
+}
+
+.sidebar-btn.secondary:hover {
+  background-color: #444c56;
+}
+
+.btn-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.btn-text {
+  flex: 1;
+  color: #ffffff; /* Maximum contrast */
+  font-weight: 600; /* Bold text for better readability */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3); /* Shadow for definition */
+}
+
+/* Search & Filter Styles */
+.search-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  background-color: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px 40px 10px 12px;
+  font-family: "DM Sans";
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #58a6ff;
+}
+
+.search-input::placeholder {
+  color: #8b949e;
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #8b949e;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-search-btn:hover {
+  color: #f0f6fc;
+  background-color: #30363d;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-title {
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: #8b949e;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  user-select: none;
+  width: 100%;
+  min-height: 40px;
+}
+
+.filter-option:hover {
+  background-color: #30363d;
+}
+
+.filter-option input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
+
+/* Custom checkbox styling */
+.filter-option .checkmark {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: #21262d;
+  border: 2px solid #30363d;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.filter-option:hover .checkmark {
+  border-color: #58a6ff;
+  background-color: #262c36;
+  transform: scale(1.05);
+}
+
+.filter-option input:focus + .checkmark {
+  border-color: #58a6ff;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+.filter-option input:checked + .checkmark {
+  background-color: #238636;
+  border-color: #238636;
+  transform: scale(1.1);
+}
+
+.filter-option input:checked + .checkmark:after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Active state for better feedback */
+.filter-option:active .checkmark {
+  transform: scale(0.95);
+}
+
+.filter-option input:checked:hover + .checkmark {
+  background-color: #2ea043;
+  border-color: #2ea043;
+  transform: scale(1.15);
+}
+
+/* Additional visual feedback for filters */
+.filter-option.filter-active {
+  background-color: rgba(35, 134, 54, 0.1);
+  border-left: 3px solid #238636;
+  padding-left: 9px;
+}
+
+.filter-option .filter-label {
+  transition: color 0.2s ease;
+  flex-grow: 1;
+}
+
+.filter-option input:checked + .checkmark + .filter-label {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Add a subtle glow effect when checked */
+.filter-option input:checked {
+  & + .checkmark + .filter-label {
+    text-shadow: 0 0 8px rgba(35, 134, 54, 0.3);
+  }
+}
+
+/* Ensure labels are properly clickable */
+.filter-option label {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.filter-label {
+  flex: 1;
+  font-family: "DM Sans";
+  font-size: 0.9rem;
+  color: #f0f6fc;
+  font-weight: 500;
+}
+
+/* Workspace Info Styles */
+.workspace-info {
+  margin-bottom: 1rem;
+}
+
+.current-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: var(--card-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.workspace-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  color: #ffffff; /* Better contrast than --text-secondary */
+  font-weight: 700 !important; /* Bold for maximum visibility */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+.workspace-name {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* Security Options Modal */
+.security-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.security-option {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+}
+
+.security-option:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.security-option .security-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.security-option h3 {
+  margin: 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.security-option p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  margin-left: 320px;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  min-width: 0; /* Allow content to shrink */
+  padding-bottom: 80px; /* Add space for fixed footer */
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 0;
+}
+
+.board-container {
+  display: flex;
+  gap: 24px;
+  padding: 40px 20px 20px;
+  max-width: none;
+  margin: 0;
+  flex: 1;
+  min-height: 0; /* Allow container to shrink */
+  overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+}
+
+.board-column {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px; /* Prevent columns from getting too wide */
+  background-color: #20252B;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px; /* Minimum height instead of fixed */
+  overflow: visible; /* Allow content to show */
+}
+
+/* Column Header Styles */
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #30363D;
+  min-height: 60px; /* Consistent header height */
+}
+
+.column-header h2 {
+  font-family: "DM Sans";
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-count {
+  font-size: 0.9rem;
+  color: #8b949e;
+  font-weight: 500;
+}
+
+.add-task-btn {
+  background-color: #238636;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-task-btn:hover {
+  background-color: #2ea043;
+  transform: translateY(-1px);
+}
+
+/* Tasks Container Styles */
+.tasks-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  min-height: 200px; /* Minimum height to prevent collapse */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #30363D transparent;
+}
+
+.tasks-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 3px;
+}
+
+.tasks-container::-webkit-scrollbar-thumb:hover {
+  background: #484F58;
+}
+
+.tasks-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tasks-container.drag-over {
+  background-color: rgba(88, 166, 255, 0.1);
+  border: 2px dashed #58A6FF;
+  border-radius: 8px;
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 0.9rem;
+  z-index: 1001;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.success {
+  background-color: #238636;
+  color: white;
+}
+
+.notification.error {
+  background-color: #da3633;
+  color: white;
+}
+
+.notification.info {
+  background-color: #1f6feb;
+  color: white;
+}
+
+/* Enhanced task card animations */
+.task-card {
+  transition: all 0.2s ease, transform 0.1s ease;
+}
+
+.task-card:hover {
+  border-color: #58A6FF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-title {
+  font-family: "DM Sans";
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+  margin-bottom: 12px;
+}
+
+.task-labels {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.label {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: "DM Sans";
+  color: #ffffff !important; /* Force white text for all labels */
+  font-weight: 700 !important; /* Bold for maximum visibility */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Strong shadow for contrast */
+  border: 1px solid rgba(255,255,255,0.2) !important; /* Subtle border for definition */
+}
+
+.label.concept {
+  background-color: #1e40af !important; /* Darker blue for better contrast */
+}
+
+.label.technical {
+  background-color: #dc2626 !important; /* Darker red for better contrast */
+}
+
+.label.frontend {
+  background-color: #0369a1 !important; /* Darker blue for better contrast */
+}
+
+.label.design {
+  background-color: #6b21a8 !important; /* Darker purple for better contrast */
+}
+
+.label.learning {
+  background-color: #c2410c !important; /* Darker orange for better contrast */
+}
+
+footer {
+  background-color: #1c2128;
+  border-top: 1px solid #30363D;
+  padding: 15px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  flex-shrink: 0; /* Prevent footer from shrinking */
+}
+
+.author-info {
+  text-align: center;
+  font-family: "DM Sans";
+  font-size: 0.9rem;
+  color: #8b949e;
+}
+
+.author-info a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.author-info a:hover {
+  text-decoration: underline;
+}
+
+/* Enhanced Modal Styles */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  transform: translateZ(0); /* Hardware acceleration for modals */
+  contain: layout; /* Isolate modal rendering */
+}
+
+.modal-dialog {
+  background-color: #20252B;
+  margin: 5% auto;
+  padding: 0;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #30363D;
+}
+
+.modal-header h2 {
+  font-family: "DM Sans";
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #8B949E;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-body {
+  padding: 20px 24px;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 16px 24px 20px;
+  border-top: 1px solid #30363D;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-family: "DM Sans";
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-btn-primary {
+  background-color: #238636;
+  color: white;
+}
+
+.modal-btn-primary:hover {
+  background-color: #2ea043;
+  transform: translateY(-1px);
+}
+
+.modal-btn-secondary {
+  background-color: #6e7681;
+  color: white;
+}
+
+.modal-btn-secondary:hover {
+  background-color: #8b949e;
+}
+
+.modal-btn-danger {
+  background-color: #da3633;
+  color: white;
+}
+
+.modal-btn-danger:hover {
+  background-color: #f85149;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "DM Sans";
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #30363D;
+  border-radius: 8px;
+  background-color: #191B1F;
+  color: #ffffff;
+  font-family: "DM Sans";
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #58A6FF;
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+}
+
+.form-text {
+  font-size: 0.8rem;
+  color: #8b949e;
+  margin-top: 4px;
+}
+
+/* Enhanced Modal Styles */
+#customModal .modal-content {
+  max-width: 600px;
+  width: 90%;
+}
+
+#customModal input[type="text"],
+#customModal input[type="password"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  background: var(--input-bg);
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+}
+
+#customModal input[type="text"]:focus,
+#customModal input[type="password"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Touch Target Accessibility Improvements */
+@media (max-width: 768px) {
+  /* Ensure all interactive elements meet minimum touch target size */
+  .task-action-btn,
+  .add-task-btn,
+  .sidebar-btn,
+  .sidebar-toggle,
+  .floating-toggle,
+  .clear-search-btn,
+  .close,
+  .modal-close,
+  button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+  }
+  
+  /* Increase spacing between interactive elements */
+  .task-actions {
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .task-action-btn {
+    margin: 4px;
+  }
+  
+  /* Improve filter option touch targets */
+  .filter-option {
+    min-height: 48px;
+    padding: 12px;
+  }
+  
+  /* Improve task card spacing for easier touch interaction */
+  .task-card {
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+  
+  /* Better spacing for modal buttons */
+  .form-actions {
+    gap: 12px;
+  }
+  
+  .form-actions button {
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+}
+
+/* Additional spacing improvements for all screen sizes */
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 0;
+}
+
+/* Improve spacing between elements in sidebar */
+.sidebar-options {
+  gap: 12px;
+}
+
+.filter-group {
+  margin-bottom: 24px;
+}
+
+/* Better button spacing in modal actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Ensure adequate spacing around clickable elements */
+.modal-header {
+  padding: 20px 24px 16px;
+}
+
+.close-btn,
+.modal-close {
+  margin: 4px;
+}
+
+/* ======================================================
+   ENHANCED ACCESSIBILITY - HIGH CONTRAST
+   ====================================================== */
+
+/* Override CSS custom properties for maximum contrast */
+:root {
+  --text-color: #ffffff !important; /* Maximum contrast white */
+  --text-secondary: #ffffff !important; /* Maximum contrast for secondary text */
+  --text-muted: #e6e6e6 !important; /* Lighter but still high contrast muted text */
+}
+
+/* Force maximum contrast for all labels */
+.label {
+  color: #ffffff !important; /* Force white text for all labels */
+  font-weight: 700 !important; /* Maximum font weight for readability */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Strong shadow for contrast */
+  border: 1px solid rgba(255,255,255,0.2) !important; /* Subtle border for definition */
+}
+
+/* Enhanced contrast for label backgrounds */
+.label.technical {
+  background-color: #dc2626 !important; /* Darker red for better contrast */
+}
+
+.label.frontend {
+  background-color: #0369a1 !important; /* Darker blue for better contrast */
+}
+
+.label.design {
+  background-color: #6b21a8 !important; /* Darker purple for better contrast */
+}
+
+.label.learning {
+  background-color: #c2410c !important; /* Darker orange for better contrast */
+}
+
+.label.concept {
+  background-color: #1e40af !important; /* Darker blue for better contrast */
+}
+
+/* Maximum contrast for button text */
+.btn-text {
+  color: #ffffff !important; /* Maximum contrast */
+  font-weight: 600 !important; /* Bold text for better readability */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important; /* Shadow for definition */
+}
+
+/* Task title contrast enhancement */
+.task-title {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+}
+
+/* Section titles maximum contrast */
+.section-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Filter title contrast */
+.filter-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Workspace name contrast */
+.workspace-name {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Prevent font loading layout shifts */
+body {
+  font-display: swap; /* Use fallback font while custom font loads */
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Apply font-display to all elements using DM Sans */
+.sidebar-title,
+.label,
+.task-title,
+.section-title,
+.filter-title,
+.modal-title,
+h1, h2, h3, h4, h5, h6 {
+  font-display: swap;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Ensure consistent spacing to prevent shifts */
+.sidebar-section {
+  min-height: 80px; /* Minimum height to prevent collapse */
+}
+
+.column-header {
+  min-height: 60px; /* Consistent header height */
+}
+
+/* Filter options consistent spacing */
+.filter-option {
+  min-height: 32px; /* Consistent option height */
+}
+
+/* ======================================================
+   GITHUB PAGES SPECIFIC OPTIMIZATIONS
+   ====================================================== */
+
+/* Critical CSS optimization - inline only the most critical styles */
+/* All other styles are already optimized for loading */
+
+/* Reduce painting complexity */
+* {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Optimize for mobile GitHub Pages viewing */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    height: 100vh;
+    z-index: 1001;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+  
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .floating-toggle {
+    display: flex !important;
+    left: 20px;
+    top: 20px;
+    z-index: 1002;
+  }
+  
+  .board-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 16px 20px;
+    overflow-x: visible;
+  }
+  
+  .board-column {
+    min-width: 100%;
+    max-width: none;
+    min-height: 300px;
+    max-height: 400px;
+  }
+  
+  .tasks-container {
+    max-height: 250px;
+  }
+  
+  .column-header h2 {
+    font-size: 1rem;
+  }
+  
+  .add-task-btn {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+  }
+  
+  /* Ensure all interactive elements meet minimum touch target size */
+  .task-action-btn,
+  .add-task-btn,
+  .sidebar-btn,
+  .sidebar-toggle,
+  .floating-toggle,
+  .clear-search-btn,
+  .close,
+  .modal-close,
+  button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
+  }
+  
+  /* Increase spacing between interactive elements */
+  .task-actions {
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .task-action-btn {
+    margin: 4px;
+  }
+  
+  /* Improve filter option touch targets */
+  .filter-option {
+    min-height: 48px;
+    padding: 12px;
+  }
+  
+  /* Improve task card spacing for easier touch interaction */
+  .task-card {
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+  
+  /* Better spacing for modal buttons */
+  .form-actions {
+    gap: 12px;
+  }
+  
+  .form-actions button {
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100vw;
+  }
+  
+  .board-container {
+    padding: 16px 12px;
+    gap: 12px;
+  }
+  
+  .board-column {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .column-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .column-header h2 {
+    justify-content: center;
+  }
+  
+  .add-task-btn {
+    width: 100%;
+  }
+}
+
+/* GitHub Pages CDN optimization hints */
+.preload-hint {
+  content: '';
+  position: absolute;
+  left: -9999px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>');
+}
+
+/* Optimize for GitHub Pages rendering */
+.github-pages-optimized {
+  contain: strict;
+  content-visibility: auto;
+}
