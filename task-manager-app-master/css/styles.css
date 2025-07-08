@@ -6,8 +6,8 @@
   --sidebar-bg: #20252B;
   --card-bg: #21262D;
   --border-color: #30363D;
-  --text-color: #f0f6fc;
-  --text-secondary: #b1bac4; /* Improved contrast from #8b949e */
+  --text-color: #ffffff; /* Improved contrast from #f0f6fc */
+  --text-secondary: #e6edf3; /* Improved contrast from #c9d1d9 */
   --text-muted: #8b949e;
   --success-color: #238636;
   --danger-color: #da3633;
@@ -263,6 +263,8 @@ body {
 
 .btn-text {
   flex: 1;
+  color: #ffffff; /* Better contrast than --text-color */
+  font-weight: 500;
 }
 
 /* Search & Filter Styles */
@@ -515,6 +517,7 @@ body {
   height: calc(100vh - 180px); /* Fixed height for consistent scrolling */
   max-height: calc(100vh - 180px); /* Ensure columns don't exceed viewport height */
   overflow: hidden; /* Hide column overflow */
+  contain: layout style; /* Contain layout changes within columns */
 }
 
 .tasks-container {
@@ -523,6 +526,8 @@ body {
   overflow-x: hidden;
   min-height: 0; /* Allow container to shrink */
   scroll-behavior: smooth; /* Smooth scrolling */
+  min-height: 100px; /* Prevent layout shift when tasks are loaded */
+  transition: none; /* Remove transitions that could cause layout shifts */
 }
 
 /* Add fade effect at the bottom when scrollable */
@@ -592,6 +597,9 @@ body {
   border: 1px solid #30363D;
   transition: all 0.2s ease;
   position: relative;
+  min-height: 80px; /* Consistent minimum height */
+  transform: translateZ(0); /* Enable hardware acceleration */
+  will-change: transform; /* Optimize for transforms during drag */
 }
 
 .task-card:last-child {
@@ -723,6 +731,8 @@ body {
   font-size: 0.75rem;
   font-weight: 500;
   font-family: "DM Sans";
+  color: #ffffff !important; /* Force white text for all labels */
+  font-weight: 600; /* Bolder text for better readability */
 }
 
 .label.concept {
@@ -969,6 +979,8 @@ footer {
   font-size: 0.85rem;
   color: var(--text-secondary);
   font-weight: 500;
+  color: #ffffff; /* Better contrast than --text-secondary */
+  font-weight: 600;
 }
 
 .workspace-name {

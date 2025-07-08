@@ -59,15 +59,13 @@ class TaskManager {
   }
 
   addEventListeners() {
-    // Add task buttons - use setTimeout to ensure DOM is ready
-    setTimeout(() => {
-      document.querySelectorAll('.add-task-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const column = e.target.getAttribute('data-column');
-          this.openTaskModal(column);
-        });
+    // Add task buttons - DOM is ready since script is deferred
+    document.querySelectorAll('.add-task-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const column = e.target.getAttribute('data-column');
+        this.openTaskModal(column);
       });
-    }, 100);
+    });
 
     // Task card click handlers
     document.addEventListener('click', (e) => {
@@ -94,31 +92,28 @@ class TaskManager {
       }
     });
 
-    // Wait for modal to be created before adding listeners
-    setTimeout(() => {
-      // Modal event listeners
-      const closeModal = document.getElementById('closeModal');
-      if (closeModal) {
-        closeModal.addEventListener('click', () => {
-          this.closeTaskModal();
-        });
-      }
+    // Modal event listeners - DOM is ready since script is deferred
+    const closeModal = document.getElementById('closeModal');
+    if (closeModal) {
+      closeModal.addEventListener('click', () => {
+        this.closeTaskModal();
+      });
+    }
 
-      const taskForm = document.getElementById('taskForm');
-      if (taskForm) {
-        taskForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          this.handleTaskSubmit();
-        });
-      }
+    const taskForm = document.getElementById('taskForm');
+    if (taskForm) {
+      taskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.handleTaskSubmit();
+      });
+    }
 
-      const cancelBtn = document.getElementById('cancelBtn');
-      if (cancelBtn) {
-        cancelBtn.addEventListener('click', () => {
-          this.closeTaskModal();
-        });
-      }
-    }, 200);
+    const cancelBtn = document.getElementById('cancelBtn');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        this.closeTaskModal();
+      });
+    }
 
     // Close modal when clicking outside
     window.addEventListener('click', (e) => {
@@ -128,8 +123,7 @@ class TaskManager {
       }
     });
 
-    // Sidebar button event listeners
-    setTimeout(() => {
+    // Sidebar button event listeners - DOM is ready since script is deferred
       // Sidebar toggle (inside sidebar)
       const sidebarToggle = document.getElementById('sidebarToggle');
       if (sidebarToggle) {
@@ -182,7 +176,6 @@ class TaskManager {
           this.resetFilters();
         });
       }
-    }, 100);
 
     // Drag and drop functionality
     this.setupDragAndDrop();
@@ -463,25 +456,23 @@ class TaskManager {
     
     // Render tasks
     tasksContainer.innerHTML = tasks.map(task => `
-      <div class="task-card" data-task-id="${task.id}" draggable="true">
-        <div class="task-title">${task.title}</div>
+      <div class="task-card" data-task-id="${task.id}" draggable="true" role="article" aria-labelledby="task-title-${task.id}">
+        <div class="task-title" id="task-title-${task.id}">${task.title}</div>
         <div class="task-labels">
           <span class="label ${task.label}">${this.capitalizeFirst(task.label)}</span>
         </div>
-        <div class="task-actions">
-          <button class="task-action-btn edit-task" data-task-id="${task.id}" data-column="${columnKey}" title="Edit Task">✏️</button>
-          <button class="task-action-btn duplicate-task" data-task-id="${task.id}" data-column="${columnKey}" title="Duplicate Task">📋</button>
-          <button class="task-action-btn delete-task" data-task-id="${task.id}" data-column="${columnKey}" title="Delete Task">🗑️</button>
-          ${this.getMoveButtons(columnKey, task.id)}
+        <div class="task-actions" role="group" aria-label="Task actions">
+          <button class="task-action-btn edit-task" data-task-id="${task.id}" data-column="${columnKey}" title="Edit Task" aria-label="Edit task: ${task.title}">✏️</button>
+          <button class="task-action-btn duplicate-task" data-task-id="${task.id}" data-column="${columnKey}" title="Duplicate Task" aria-label="Duplicate task: ${task.title}">📋</button>
+          <button class="task-action-btn delete-task" data-task-id="${task.id}" data-column="${columnKey}" title="Delete Task" aria-label="Delete task: ${task.title}">🗑️</button>
+          ${this.getMoveButtons(columnKey, task.id, task.title)}
         </div>
       </div>
     `).join('');
     
-    // Check if container is scrollable and add appropriate class
-    setTimeout(() => {
-      // Force a reflow to ensure accurate height calculations
-      tasksContainer.offsetHeight;
-      
+    // Use requestAnimationFrame for better performance instead of setTimeout
+    requestAnimationFrame(() => {
+      // Check if container is scrollable without forcing reflow
       const isScrollable = tasksContainer.scrollHeight > tasksContainer.clientHeight;
       
       if (isScrollable) {
@@ -495,19 +486,27 @@ class TaskManager {
     this.saveToCache();
   }
 
-  getMoveButtons(currentColumn, taskId) {
+  getMoveButtons(currentColumn, taskId, taskTitle = '') {
     const columns = ['backlog', 'inProgress', 'inReview', 'completed'];
     const currentIndex = columns.indexOf(currentColumn);
     let buttons = '';
     
     if (currentIndex > 0) {
       const prevColumn = columns[currentIndex - 1];
-      buttons += `<button class="task-action-btn move-task" data-task-id="${taskId}" data-from-column="${currentColumn}" data-to-column="${prevColumn}" title="Move Left">⬅️</button>`;
+      const prevColumnName = prevColumn === 'inProgress' ? 'In Progress' : 
+                            prevColumn === 'inReview' ? 'In Review' : 
+                            this.capitalizeFirst(prevColumn);
+      const ariaLabel = taskTitle ? `Move "${taskTitle}" to ${prevColumnName}` : `Move to ${prevColumnName}`;
+      buttons += `<button class="task-action-btn move-task" data-task-id="${taskId}" data-from-column="${currentColumn}" data-to-column="${prevColumn}" title="Move to ${prevColumnName}" aria-label="${ariaLabel}">⬅️</button>`;
     }
     
     if (currentIndex < columns.length - 1) {
       const nextColumn = columns[currentIndex + 1];
-      buttons += `<button class="task-action-btn move-task" data-task-id="${taskId}" data-from-column="${currentColumn}" data-to-column="${nextColumn}" title="Move Right">➡️</button>`;
+      const nextColumnName = nextColumn === 'inProgress' ? 'In Progress' : 
+                            nextColumn === 'inReview' ? 'In Review' : 
+                            this.capitalizeFirst(nextColumn);
+      const ariaLabel = taskTitle ? `Move "${taskTitle}" to ${nextColumnName}` : `Move to ${nextColumnName}`;
+      buttons += `<button class="task-action-btn move-task" data-task-id="${taskId}" data-from-column="${currentColumn}" data-to-column="${nextColumn}" title="Move to ${nextColumnName}" aria-label="${ariaLabel}">➡️</button>`;
     }
     
     return buttons;
