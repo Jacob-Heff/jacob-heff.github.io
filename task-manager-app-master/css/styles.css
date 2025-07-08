@@ -110,9 +110,14 @@ body {
   transition: all 0.3s ease;
   min-width: 48px;
   min-height: 48px;
-  display: none;
   align-items: center;
   justify-content: center;
+  display: none; /* Hidden by default */
+}
+
+/* Show floating toggle only when sidebar is collapsed */
+.sidebar.collapsed ~ .floating-toggle {
+  display: flex;
 }
 
 .floating-toggle:hover {
@@ -988,10 +993,14 @@ footer {
   }
   
   .floating-toggle {
-    display: flex !important;
     left: 20px;
     top: 20px;
     z-index: 1002;
+  }
+  
+  /* On mobile, show floating toggle only when sidebar is collapsed */
+  .sidebar.collapsed ~ .floating-toggle {
+    display: flex;
   }
   
   .board-container {
@@ -1120,14 +1129,17 @@ footer {
 }
 
 /* Hidden by default elements */
-.floating-toggle,
+.floating-toggle {
+  display: none;
+}
+
 #sidebarImportInput,
 .modal-overlay {
   display: none;
 }
 
-/* Show floating toggle when needed */
-.floating-toggle.show {
+/* Show floating toggle when sidebar is collapsed */
+.sidebar.collapsed ~ .floating-toggle {
   display: flex;
 }
 
