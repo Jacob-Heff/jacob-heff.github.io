@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://jacob-heff.github.io/task-manager-app-master/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 1
+
+# Block unnecessary files
+Disallow: /sw.js
+Disallow: /manifest.json
+Disallow: /browserconfig.xml

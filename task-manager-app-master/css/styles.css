@@ -7,11 +7,55 @@
   --card-bg: #21262D;
   --border-color: #30363D;
   --text-color: #ffffff; /* Improved contrast from #f0f6fc */
-  --text-secondary: #e6edf3; /* Improved contrast from #c9d1d9 */
-  --text-muted: #8b949e;
+  --text-secondary: #ffffff; /* Maximum contrast for secondary text */
+  --text-muted: #e6e6e6; /* Lighter but still high contrast muted text */
   --success-color: #238636;
   --danger-color: #da3633;
   --input-bg: #21262D;
+}
+
+/* ======================================================
+   PERFORMANCE OPTIMIZATIONS & ACCESSIBILITY IMPROVEMENTS
+   ====================================================== */
+
+/* Prevent layout shifts and improve rendering performance */
+.tasks-container {
+  min-height: 120px; /* Prevent layout shift when tasks are loaded */
+  transition: none; /* Remove transitions that could cause layout shifts */
+  contain: layout style; /* Isolate rendering changes */
+}
+
+.task-card {
+  min-height: 90px; /* Consistent minimum height for stability */
+  transform: translateZ(0); /* Enable hardware acceleration */
+  will-change: transform; /* Optimize for transforms during drag */
+  contain: layout; /* Isolate task card layout changes */
+}
+
+.modal-overlay {
+  transform: translateZ(0); /* Hardware acceleration for modals */
+  contain: layout; /* Isolate modal rendering */
+}
+
+.board-column {
+  contain: layout style; /* Contain layout changes within columns */
+  min-height: calc(100vh - 180px); /* Ensure consistent height */
+}
+
+/* Main content stability improvements */
+.main-content {
+  min-height: 100vh; /* Prevent height changes that cause layout shifts */
+  contain: layout; /* Isolate layout changes to main content */
+}
+
+.sidebar {
+  min-height: 100vh; /* Consistent sidebar height */
+  contain: layout; /* Isolate sidebar layout changes */
+}
+
+/* Board container stability */
+.board-container {
+  min-height: calc(100vh - 140px); /* Consistent container height */
 }
 
 /* Global scrollbar hiding and overflow control */
@@ -60,6 +104,8 @@ body {
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scrolling */
   overflow-y: hidden; /* Hide body scrollbar but allow content to scroll */
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-display: swap; /* Use fallback font while custom font loads */
 }
 
 /* Sidebar Styles */
@@ -263,8 +309,9 @@ body {
 
 .btn-text {
   flex: 1;
-  color: #ffffff; /* Better contrast than --text-color */
-  font-weight: 500;
+  color: #ffffff; /* Maximum contrast */
+  font-weight: 600; /* Bold text for better readability */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3); /* Shadow for definition */
 }
 
 /* Search & Filter Styles */
@@ -463,15 +510,79 @@ body {
   font-weight: 500;
 }
 
-.filter-count {
-  font-family: "DM Sans";
-  font-size: 0.8rem;
-  color: #8b949e;
-  font-weight: 500;
+/* Workspace Info Styles */
+.workspace-info {
+  margin-bottom: 1rem;
 }
 
-.filter-actions {
-  margin-top: 20px;
+.current-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: var(--card-bg);
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.workspace-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  color: #ffffff; /* Better contrast than --text-secondary */
+  font-weight: 700 !important; /* Bold for maximum visibility */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+.workspace-name {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+/* Security Options Modal */
+.security-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.security-option {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+}
+
+.security-option:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.security-option .security-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.security-option h3 {
+  margin: 0.5rem 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.security-option p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* Main Content Styles */
@@ -520,86 +631,19 @@ body {
   contain: layout style; /* Contain layout changes within columns */
 }
 
-.tasks-container {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0; /* Allow container to shrink */
-  scroll-behavior: smooth; /* Smooth scrolling */
-  min-height: 100px; /* Prevent layout shift when tasks are loaded */
-  transition: none; /* Remove transitions that could cause layout shifts */
-}
-
-/* Add fade effect at the bottom when scrollable */
-.tasks-container::after {
-  content: '';
-  position: sticky;
-  bottom: 0;
-  display: block;
-  height: 20px;
-  background: linear-gradient(transparent, #20252B);
-  pointer-events: none;
-  margin-top: -20px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.tasks-container.has-scroll::after {
-  opacity: 1;
-}
-
-.column-header {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.column-header h2 {
-  font-family: "DM Sans";
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: #ecedf0;
-  margin-bottom: 0;
-}
-
-.add-task-btn {
-  background-color: #238636;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 12px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  min-width: 44px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.add-task-btn:hover {
-  background-color: #2ea043;
-}
-
-.task-count {
-  color: #8B949E;
-  font-weight: 400;
-}
-
+/* Task Styles */
 .task-card {
   background-color: #191B1F;
   border-radius: 12px;
   padding: 16px;
   margin-bottom: 12px;
   border: 1px solid #30363D;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease, transform 0.1s ease;
   position: relative;
-  min-height: 80px; /* Consistent minimum height */
+  min-height: 90px; /* Consistent minimum height */
   transform: translateZ(0); /* Enable hardware acceleration */
   will-change: transform; /* Optimize for transforms during drag */
+  contain: layout; /* Isolate task card layout changes */
 }
 
 .task-card:last-child {
@@ -609,7 +653,7 @@ body {
 .task-card:hover {
   border-color: #58A6FF;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .task-card:hover .task-actions {
@@ -622,6 +666,7 @@ body {
   margin-top: 8px;
   opacity: 0;
   transition: opacity 0.2s ease;
+  min-height: 36px; /* Prevent button container collapse */
 }
 
 .task-action-btn {
@@ -712,10 +757,10 @@ body {
 
 .task-title {
   font-family: "DM Sans";
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.9rem;
-  color: #ecedf0;
-  line-height: 1.4;
+  color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
   margin-bottom: 12px;
 }
 
@@ -732,32 +777,29 @@ body {
   font-weight: 500;
   font-family: "DM Sans";
   color: #ffffff !important; /* Force white text for all labels */
-  font-weight: 600; /* Bolder text for better readability */
+  font-weight: 700 !important; /* Bold for maximum visibility */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Strong shadow for contrast */
+  border: 1px solid rgba(255,255,255,0.2) !important; /* Subtle border for definition */
 }
 
 .label.concept {
-  background-color: #1F6FEB;
-  color: white;
+  background-color: #1e40af !important; /* Darker blue for better contrast */
 }
 
 .label.technical {
-  background-color: #F85149;
-  color: white;
+  background-color: #dc2626 !important; /* Darker red for better contrast */
 }
 
 .label.frontend {
-  background-color: #0891b2;
-  color: white;
+  background-color: #0369a1 !important; /* Darker blue for better contrast */
 }
 
 .label.design {
-  background-color: #7c3aed;
-  color: white;
+  background-color: #6b21a8 !important; /* Darker purple for better contrast */
 }
 
 .label.learning {
-  background-color: #ea580c;
-  color: white;
+  background-color: #c2410c !important; /* Darker orange for better contrast */
 }
 
 footer {
@@ -915,125 +957,6 @@ footer {
   background-color: #2ea043;
 }
 
-/* Security Options Modal */
-.security-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.security-option {
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: var(--card-bg);
-}
-
-.security-option:hover {
-  border-color: var(--primary-color);
-  background: var(--primary-light);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.security-option .security-icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.security-option h3 {
-  margin: 0.5rem 0;
-  color: var(--text-color);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.security-option p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Workspace Info Styles */
-.workspace-info {
-  margin-bottom: 1rem;
-}
-
-.current-workspace {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  background: var(--card-bg);
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-}
-
-.workspace-label {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-  color: #ffffff; /* Better contrast than --text-secondary */
-  font-weight: 600;
-}
-
-.workspace-name {
-  font-weight: 600;
-  color: var(--text-color);
-  font-size: 0.9rem;
-}
-
-.security-badge {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.security-badge.low {
-  background: #fef3c7;
-  color: #92400e;
-  border: 1px solid #fde68a;
-}
-
-.security-badge.medium {
-  background: #dbeafe;
-  color: #1e40af;
-  border: 1px solid #93c5fd;
-}
-
-.security-badge.high {
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #86efac;
-}
-
-.workspace-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.workspace-controls .sidebar-btn {
-  justify-content: flex-start;
-  font-size: 0.85rem;
-  padding: 0.6rem 0.8rem;
-}
-
-.workspace-controls .sidebar-btn .btn-icon {
-  font-size: 0.9rem;
-  margin-right: 0.5rem;
-}
-
 /* Enhanced Modal Styles */
 #customModal .modal-content {
   max-width: 600px;
@@ -1146,4 +1069,162 @@ footer {
 .close-btn,
 .modal-close {
   margin: 4px;
+}
+
+/* ======================================================
+   ENHANCED ACCESSIBILITY - HIGH CONTRAST
+   ====================================================== */
+
+/* Override CSS custom properties for maximum contrast */
+:root {
+  --text-color: #ffffff !important; /* Maximum contrast white */
+  --text-secondary: #ffffff !important; /* Maximum contrast for secondary text */
+  --text-muted: #e6e6e6 !important; /* Lighter but still high contrast muted text */
+}
+
+/* Force maximum contrast for all labels */
+.label {
+  color: #ffffff !important; /* Force white text for all labels */
+  font-weight: 700 !important; /* Maximum font weight for readability */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Strong shadow for contrast */
+  border: 1px solid rgba(255,255,255,0.2) !important; /* Subtle border for definition */
+}
+
+/* Enhanced contrast for label backgrounds */
+.label.technical {
+  background-color: #dc2626 !important; /* Darker red for better contrast */
+}
+
+.label.frontend {
+  background-color: #0369a1 !important; /* Darker blue for better contrast */
+}
+
+.label.design {
+  background-color: #6b21a8 !important; /* Darker purple for better contrast */
+}
+
+.label.learning {
+  background-color: #c2410c !important; /* Darker orange for better contrast */
+}
+
+.label.concept {
+  background-color: #1e40af !important; /* Darker blue for better contrast */
+}
+
+/* Maximum contrast for button text */
+.btn-text {
+  color: #ffffff !important; /* Maximum contrast */
+  font-weight: 600 !important; /* Bold text for better readability */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3) !important; /* Shadow for definition */
+}
+
+/* Task title contrast enhancement */
+.task-title {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.2) !important;
+}
+
+/* Section titles maximum contrast */
+.section-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Filter title contrast */
+.filter-title {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Workspace name contrast */
+.workspace-name {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* Prevent font loading layout shifts */
+body {
+  font-display: swap; /* Use fallback font while custom font loads */
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Apply font-display to all elements using DM Sans */
+.sidebar-title,
+.label,
+.task-title,
+.section-title,
+.filter-title,
+.modal-title,
+h1, h2, h3, h4, h5, h6 {
+  font-display: swap;
+  font-family: "DM Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Ensure consistent spacing to prevent shifts */
+.sidebar-section {
+  min-height: 80px; /* Minimum height to prevent collapse */
+}
+
+.column-header {
+  min-height: 60px; /* Consistent header height */
+}
+
+/* Filter options consistent spacing */
+.filter-option {
+  min-height: 32px; /* Consistent option height */
+}
+
+/* ======================================================
+   GITHUB PAGES SPECIFIC OPTIMIZATIONS
+   ====================================================== */
+
+/* Critical CSS optimization - inline only the most critical styles */
+/* All other styles are already optimized for loading */
+
+/* Reduce painting complexity */
+* {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Optimize for mobile GitHub Pages viewing */
+@media (max-width: 768px) {
+  .board-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .board-column {
+    min-width: 100%;
+    max-height: 300px;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .main-content {
+    margin-left: 0;
+    min-height: auto;
+  }
+}
+
+/* GitHub Pages CDN optimization hints */
+.preload-hint {
+  content: '';
+  position: absolute;
+  left: -9999px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>');
+}
+
+/* Optimize for GitHub Pages rendering */
+.github-pages-optimized {
+  contain: strict;
+  content-visibility: auto;
 }

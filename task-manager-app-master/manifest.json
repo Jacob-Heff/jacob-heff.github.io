@@ -1,0 +1,42 @@
+{
+  "name": "Task Manager App",
+  "short_name": "TaskManager",
+  "description": "A modern, secure Kanban-style task manager with workspace support and drag-and-drop functionality",
+  "start_url": "/task-manager-app-master/",
+  "display": "standalone",
+  "background_color": "#191B1F",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "resources/favicon.ico",
+      "sizes": "96x96",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Add New Task",
+      "short_name": "New Task",
+      "description": "Quickly add a new task to backlog",
+      "url": "/task-manager-app-master/?action=new-task"
+    },
+    {
+      "name": "Export Tasks",
+      "short_name": "Export",
+      "description": "Export all tasks to JSON",
+      "url": "/task-manager-app-master/?action=export"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "resources/favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "96x96",
+      "form_factor": "wide"
+    }
+  ]
+}
