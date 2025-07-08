@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #191B1F;
+            color: white;
+        }
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 10px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            position: relative;
+            user-select: none;
+            width: 100%;
+            min-height: 40px;
+            margin-bottom: 10px;
+            background: #20252B;
+        }
+        .filter-option:hover {
+            background-color: #30363d;
+        }
+        .filter-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+            z-index: -1;
+        }
+        .filter-option .checkmark {
+            position: relative;
+            height: 18px;
+            width: 18px;
+            background-color: #21262d;
+            border: 2px solid #30363d;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .filter-option:hover .checkmark {
+            border-color: #58a6ff;
+            background-color: #262c36;
+            transform: scale(1.05);
+        }
+        .filter-option input:checked + .checkmark {
+            background-color: #238636;
+            border-color: #238636;
+            transform: scale(1.1);
+        }
+        .filter-option input:checked + .checkmark:after {
+            content: "";
+            position: absolute;
+            display: block;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .filter-option .filter-label {
+            transition: color 0.2s ease;
+            flex-grow: 1;
+        }
+        .filter-option input:checked + .checkmark + .filter-label {
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .filter-option.filter-active {
+            background-color: rgba(35, 134, 54, 0.1);
+            border-left: 3px solid #238636;
+            padding-left: 9px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #30363D;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h2>Filter Test</h2>
+        <p>Click on the checkboxes to test functionality:</p>
+        
+        <label class="filter-option">
+            <input type="checkbox" value="all" id="filterAll" checked>
+            <span class="checkmark"></span>
+            <span class="filter-label">All Labels</span>
+        </label>
+        
+        <label class="filter-option">
+            <input type="checkbox" value="technical" id="filterTechnical">
+            <span class="checkmark"></span>
+            <span class="filter-label">Technical</span>
+        </label>
+        
+        <label class="filter-option">
+            <input type="checkbox" value="design" id="filterDesign">
+            <span class="checkmark"></span>
+            <span class="filter-label">Design</span>
+        </label>
+        
+        <div class="result" id="result">
+            Selected filters will appear here...
+        </div>
+    </div>
+
+    <script>
+        function updateResult() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const selected = [];
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selected.push(cb.value);
+                }
+                // Update visual state
+                const filterOption = cb.closest('.filter-option');
+                if (cb.checked) {
+                    filterOption.classList.add('filter-active');
+                } else {
+                    filterOption.classList.remove('filter-active');
+                }
+            });
+            document.getElementById('result').textContent = 'Selected: ' + selected.join(', ');
+        }
+
+        // Add event listeners
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                console.log('Checkbox changed:', checkbox.value, checkbox.checked);
+                updateResult();
+            });
+            
+            // Also add click event listener to the parent label
+            const labelElement = checkbox.closest('.filter-option');
+            if (labelElement) {
+                labelElement.addEventListener('click', (e) => {
+                    // Only trigger if the click wasn't on the checkbox itself
+                    if (e.target !== checkbox) {
+                        console.log('Label clicked:', checkbox.value, 'toggling checkbox');
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+            }
+        });
+
+        // Initialize
+        updateResult();
+    </script>
+</body>
+</html>
