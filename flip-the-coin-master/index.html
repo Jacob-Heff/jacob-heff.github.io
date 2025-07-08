@@ -38,6 +38,27 @@
     </style>
   </head>
   <body>
+    <div class="coin-container">
+      <div class="coin" id="coin">
+        <div class="side front">Head</div>
+        <div class="side back">Tail</div>
+      </div>
+      <button id="flip-button">Flip Coin</button>
+    </div>
+    <script>
+      const coin = document.getElementById("coin");
+      const flipButton = document.getElementById("flip-button");
+
+      flipButton.addEventListener("click", () => {
+        const randomSide = Math.random() < 0.5 ? "front" : "back";
+        coin.className = `coin ${randomSide}`;
+      });
+
+      coin.addEventListener("click", () => {
+        const randomSide = Math.random() < 0.5 ? "front" : "back";
+        coin.className = `coin ${randomSide}`;
+      });
+    </script>
     <!-- 
 
     Flip a Coin Game
