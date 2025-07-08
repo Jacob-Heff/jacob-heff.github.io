@@ -737,14 +737,6 @@ class TaskManager {
       // Also save to sessionStorage for persistence across tabs
       this.saveToSessionStorage(cacheData);
       
-      // Auto-backup every 10 changes
-      if (!this.changeCount) this.changeCount = 0;
-      this.changeCount++;
-      
-      if (this.changeCount % 10 === 0) {
-        this.autoBackup(cacheData);
-      }
-      
     } catch (error) {
       this.showNotification('Warning: Data save failed', 'error');
     }
@@ -762,36 +754,6 @@ class TaskManager {
     }
     
     return false;
-  }
-
-  // Auto-backup system (creates downloadable backup files)
-  autoBackup(data) {
-    try {
-      const backupData = {
-        ...data,
-        backupType: 'auto',
-        userAgent: navigator.userAgent.substring(0, 50) // Limited info for context
-      };
-      
-      const dataStr = JSON.stringify(backupData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      
-      // Create hidden download link
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `task-manager-auto-backup-${new Date().toISOString().split('T')[0]}.json`;
-      link.style.display = 'none';
-      
-      // Auto-download (user can ignore/delete if not wanted)
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      // Auto-backup failed silently
-    }
   }
 
   // Enhanced export with security options
@@ -1710,14 +1672,6 @@ class TaskManager {
       
       // Also save to sessionStorage for persistence across tabs
       this.saveToSessionStorage(cacheData);
-      
-      // Auto-backup every 10 changes
-      if (!this.changeCount) this.changeCount = 0;
-      this.changeCount++;
-      
-      if (this.changeCount % 10 === 0) {
-        this.autoBackup(cacheData);
-      }
       
       console.log('Data cached successfully');
     } catch (error) {

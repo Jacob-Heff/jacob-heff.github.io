@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+/* CSS Custom Properties for consistent theming and accessibility */
+:root {
+  --primary-color: #3b82f6;
+  --primary-light: rgba(59, 130, 246, 0.1);
+  --background-color: #191B1F;
+  --sidebar-bg: #20252B;
+  --card-bg: #21262D;
+  --border-color: #30363D;
+  --text-color: #f0f6fc;
+  --text-secondary: #b1bac4; /* Improved contrast from #8b949e */
+  --text-muted: #8b949e;
+  --success-color: #238636;
+  --danger-color: #da3633;
+  --input-bg: #21262D;
+}
 
 /* Global scrollbar hiding and overflow control */
 * {
@@ -74,14 +88,18 @@ body {
   background-color: #20252B;
   color: #f0f6fc;
   border: 1px solid #30363D;
-  border-radius: 6px;
-  padding: 8px 12px;
+  border-radius: 8px;
+  padding: 12px;
   font-size: 1.2rem;
   cursor: pointer;
   z-index: 1002;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  display: none; /* Hidden by default */
+  min-width: 48px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  display: none; /* Hidden by default, will be set to flex when shown */
 }
 
 .floating-toggle:hover {
@@ -100,7 +118,7 @@ body {
 }
 
 .floating-toggle.show {
-  display: block;
+  display: flex;
   animation: subtle-pulse 3s ease-in-out infinite;
 }
 
@@ -143,10 +161,15 @@ body {
   color: #f0f6fc;
   font-size: 1.2rem;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 4px;
+  padding: 12px;
+  border-radius: 6px;
   transition: all 0.3s ease;
   position: relative;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-toggle:hover {
@@ -271,17 +294,22 @@ body {
 
 .clear-search-btn {
   position: absolute;
-  right: 8px;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: #8b949e;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 3px;
-  font-size: 0.8rem;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
   transition: color 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .clear-search-btn:hover {
@@ -535,11 +563,16 @@ body {
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 0.8rem;
+  padding: 12px 16px;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .add-task-btn:hover {
@@ -588,9 +621,15 @@ body {
   border: none;
   font-size: 0.9rem;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 8px;
+  border-radius: 6px;
   transition: background-color 0.2s ease;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
 }
 
 .task-action-btn:hover {
@@ -697,18 +736,18 @@ body {
 }
 
 .label.frontend {
-  background-color: #A5F3FC;
-  color: #0F172A;
+  background-color: #0891b2;
+  color: white;
 }
 
 .label.design {
-  background-color: #C084FC;
+  background-color: #7c3aed;
   color: white;
 }
 
 .label.learning {
-  background-color: #FBB042;
-  color: #0F172A;
+  background-color: #ea580c;
+  color: white;
 }
 
 footer {
@@ -782,10 +821,19 @@ footer {
   font-weight: bold;
   cursor: pointer;
   line-height: 1;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 .close:hover {
   color: #ecedf0;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 #taskForm {
@@ -1000,244 +1048,90 @@ footer {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Responsive Design */
+/* Touch Target Accessibility Improvements */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    transform: translateX(-100%);
-    box-shadow: none; /* Remove shadow on mobile to prevent bleeding */
+  /* Ensure all interactive elements meet minimum touch target size */
+  .task-action-btn,
+  .add-task-btn,
+  .sidebar-btn,
+  .sidebar-toggle,
+  .floating-toggle,
+  .clear-search-btn,
+  .close,
+  .modal-close,
+  button {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 12px;
   }
   
-  .sidebar.open {
-    transform: translateX(0);
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2); /* Add shadow when open */
+  /* Increase spacing between interactive elements */
+  .task-actions {
+    gap: 8px;
+    padding: 8px;
   }
   
-  .sidebar.collapsed {
-    transform: translateX(-100%);
-    box-shadow: none;
+  .task-action-btn {
+    margin: 4px;
   }
   
-  /* Make floating toggle more prominent on mobile */
-  .floating-toggle {
-    padding: 12px 16px;
-    font-size: 1.3rem;
+  /* Improve filter option touch targets */
+  .filter-option {
+    min-height: 48px;
+    padding: 12px;
   }
   
-  .main-content {
-    margin-left: 0;
-    width: 100vw; /* Ensure full width on mobile */
-    padding-bottom: 70px; /* Account for fixed footer */
+  /* Improve task card spacing for easier touch interaction */
+  .task-card {
+    margin-bottom: 12px;
+    padding: 16px;
   }
   
-  .sidebar.collapsed + .main-content {
-    margin-left: 0;
+  /* Better spacing for modal buttons */
+  .form-actions {
+    gap: 12px;
   }
   
-  .board-container {
-    flex-direction: column;
-    padding: 20px 10px;
-    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
-  }
-  
-  .board-column {
-    min-width: auto;
-    max-width: none;
-    width: 100%;
+  .form-actions button {
+    min-height: 48px;
+    padding: 12px 20px;
   }
 }
 
-/* Task filtering visual states */
-.task-card.filtered-out {
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.board-column.filtered-out {
-  opacity: 0.5;
-}
-
-.search-highlight {
-  background-color: #ffd700;
-  color: #000;
-  padding: 2px 4px;
-  border-radius: 2px;
-}
-
-/* Custom Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+/* Additional spacing improvements for all screen sizes */
+.task-actions {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
   align-items: center;
-  z-index: 10000;
-  backdrop-filter: blur(3px);
-  animation: modalFadeIn 0.2s ease-out;
+  justify-content: flex-end;
+  padding: 8px 0;
 }
 
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    backdrop-filter: blur(0px);
-  }
-  to {
-    opacity: 1;
-    backdrop-filter: blur(3px);
-  }
+/* Improve spacing between elements in sidebar */
+.sidebar-options {
+  gap: 12px;
 }
 
-.modal-dialog {
-  background: #20252B;
-  border: 1px solid #30363D;
-  border-radius: 12px;
-  min-width: 400px;
-  max-width: 500px;
-  max-height: 80vh;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  animation: modalSlideIn 0.3s ease-out;
-  overflow: hidden;
+.filter-group {
+  margin-bottom: 24px;
 }
 
-@keyframes modalSlideIn {
-  from {
-    transform: translateY(-30px) scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-.modal-header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid #30363D;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #191B1F;
-}
-
-.modal-header h3 {
-  color: #F9F9F9;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  color: #8B949E;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-.modal-close:hover {
-  background: #30363D;
-  color: #F9F9F9;
-}
-
-.modal-body {
-  padding: 24px;
-}
-
-.modal-body p {
-  color: #C9D1D9;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.modal-footer {
-  padding: 16px 24px 24px;
+/* Better button spacing in modal actions */
+.form-actions {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
 }
 
-.modal-btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 80px;
+/* Ensure adequate spacing around clickable elements */
+.modal-header {
+  padding: 20px 24px 16px;
 }
 
-.modal-btn-primary {
-  background: #238636;
-  color: #FFFFFF;
-}
-
-.modal-btn-primary:hover {
-  background: #2ea043;
-  transform: translateY(-1px);
-}
-
-.modal-btn-secondary {
-  background: #30363D;
-  color: #C9D1D9;
-  border: 1px solid #424A53;
-}
-
-.modal-btn-secondary:hover {
-  background: #424A53;
-  border-color: #656D76;
-  transform: translateY(-1px);
-}
-
-.modal-btn-danger {
-  background: #DA3633;
-  color: #FFFFFF;
-}
-
-.modal-btn-danger:hover {
-  background: #E5484D;
-  transform: translateY(-1px);
-}
-
-/* Modal responsive styles */
-@media (max-width: 768px) {
-  .modal-dialog {
-    min-width: auto;
-    max-width: 90vw;
-    margin: 20px;
-  }
-  
-  .modal-header {
-    padding: 16px 20px 12px;
-  }
-  
-  .modal-header h3 {
-    font-size: 16px;
-  }
-  
-  .modal-body {
-    padding: 20px;
-  }
-  
-  .modal-footer {
-    padding: 12px 20px 20px;
-    flex-direction: column-reverse;
-  }
-  
-  .modal-btn {
-    width: 100%;
-  }
+.close-btn,
+.modal-close {
+  margin: 4px;
 }
