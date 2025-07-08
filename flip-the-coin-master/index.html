@@ -85,11 +85,11 @@
         height: auto;
       }
 
-      .coin img[src="resources/heads.svg"] {
+      .coin img[src="resources/heads.v1.svg"] {
         display: block;
       }
 
-      .coin img[src="resources/tails.svg"] {
+      .coin img[src="resources/tails.v1.svg"] {
         display: none;
       }
 
@@ -136,12 +136,12 @@
     <h2>Press the coin or the button to flip the coin</h2>
     <div style="height: 60px"></div>
     <div class="coin">
-      <img src="resources/heads.svg" alt="Coin Head" />
-      <img src="resources/tails.svg" alt="Coin Tail" />
+      <img src="resources/heads.v1.svg" alt="Coin Head" />
+      <img src="resources/tails.v1.svg" alt="Coin Tail" />
     </div>
     <div style="height: 40px"></div>
     <div class="shadow">
-      <img src="resources/shadow.svg" alt="Coin Shadow" />
+      <img src="resources/shadow.v1.svg" alt="Coin Shadow" />
     </div>
     <div style="height: 40px"></div>
     <p class="heads-or-tails">
@@ -155,8 +155,8 @@
     <script>
       const coin = document.querySelector('.coin');
       const button = document.querySelector('button');
-      const heads = 'resources/heads.svg';
-      const tails = 'resources/tails.svg';
+      const heads = 'resources/heads.v1.svg';
+      const tails = 'resources/tails.v1.svg';
       const headsOrTailsText = document.querySelector('.heads-or-tails');
 
       function flipCoin() {
