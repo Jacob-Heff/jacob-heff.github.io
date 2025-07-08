@@ -167,12 +167,13 @@ p {
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
 	background-color: #f7c552;
 }
-bootstrap.min.css:5
+
+/* Fixed navbar toggle styles */
 .navbar-toggle {
     position: relative;
     float: right;
     padding: 9px 10px;
-    margin-top: 15px!important;
+    margin-top: 15px !important;
     margin-right: 15px;
     margin-bottom: 8px;
     background-color: transparent;
@@ -304,7 +305,7 @@ bootstrap.min.css:5
 	padding: 30px 15px 0px 15px;
 }
 
-.filter-categories {;
+.filter-categories {
   margin-top: 60px;
 }
 
@@ -930,4 +931,173 @@ footer .connect-us ul li a:hover {
 		border-right: none;
 	}
 
+}
+
+/* Portfolio Project Info Styles */
+.project-info {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+	color: white;
+	padding: 20px;
+	transform: translateY(100%);
+	transition: transform 0.3s ease;
+}
+
+.thumb:hover .project-info {
+	transform: translateY(0);
+}
+
+.project-info h5 {
+	color: #fff;
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.project-info p {
+	color: #ddd;
+	font-size: 13px;
+	margin: 0;
+}
+
+.thumb {
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.thumb .image {
+	transition: transform 0.3s ease;
+}
+
+.thumb:hover .image {
+	transform: scale(1.05);
+}
+
+/* Enhanced Portfolio Styles */
+.project-tech {
+	margin-top: 10px;
+}
+
+.tech-tag {
+	display: inline-block;
+	background: rgba(247, 197, 82, 0.2);
+	color: #f7c552;
+	padding: 2px 8px;
+	border-radius: 12px;
+	font-size: 11px;
+	margin-right: 5px;
+	margin-bottom: 3px;
+	border: 1px solid rgba(247, 197, 82, 0.3);
+}
+
+.coming-soon {
+	color: #f7c552;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+/* Enhanced Blog Styles */
+.text-content ul {
+	margin: 15px 0;
+	padding-left: 20px;
+}
+
+.text-content ul li {
+	color: #7a7a7a;
+	margin-bottom: 8px;
+	line-height: 1.6;
+}
+
+.text-content ul li strong {
+	color: #333;
+	font-weight: 600;
+}
+
+.text-content .primary-blue-button {
+	margin-top: 20px;
+}
+
+/* Tab Content Improvements */
+.tabgroup > div {
+	min-height: 400px;
+}
+
+.text-content img {
+	border-radius: 8px;
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+	.project-info {
+		transform: translateY(0);
+		position: static;
+		background: rgba(0,0,0,0.8);
+		border-radius: 0 0 8px 8px;
+		margin-top: -5px;
+	}
+	
+	.thumb:hover .project-info {
+		transform: translateY(0);
+	}
+	
+	.thumb {
+		margin-bottom: 30px;
+	}
+	
+	.thumb .image img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+}
+
+@media (max-width: 768px) {
+	.tech-tag {
+		font-size: 10px;
+		padding: 1px 6px;
+	}
+	
+	.project-info {
+		padding: 15px;
+	}
+	
+	.project-info h5 {
+		font-size: 14px;
+	}
+	
+	.project-info p {
+		font-size: 12px;
+	}
+	
+	.tabgroup > div {
+		min-height: auto;
+	}
+	
+	.text-content img {
+		margin-bottom: 15px;
+		width: 100%;
+		height: auto;
+	}
+}
+
+/* Fix for mobile navigation */
+@media (max-width: 767px) {
+	.navbar-collapse {
+		border-top: 1px solid transparent;
+		box-shadow: none;
+	}
+	
+	.navbar-nav {
+		margin: 0;
+	}
+	
+	.navbar-nav > li > a {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
 }

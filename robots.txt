@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://jacob-heff.github.io/sitemap.xml
+
+# Disallow certain directories
+Disallow: /.git/
+Disallow: /css/bootstrap*
+Disallow: /js/vendor/

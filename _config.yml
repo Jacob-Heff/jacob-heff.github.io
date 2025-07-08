@@ -1,0 +1,36 @@
+# Site settings
+title: Jacob Heff - Portfolio
+email: heffingtonj21@gmail.com
+description: >-
+  An aspiring technology student looking to make his mark on the world.
+  Showcasing my projects, skills, and journey in technology development.
+baseurl: ""
+url: "https://jacob-heff.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Exclude from build
+exclude:
+  - README.md
+  - .gitignore
+  - .git/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Social media
+github_username: Jacob-Heff
+twitter_username: 20The_Man
+facebook_username: profile.php?id=100089766827930
+
+# SEO
+lang: en_US
+author: Jacob Heff
+
+# GitHub Pages specific
+repository: Jacob-Heff/jacob-heff.github.io
