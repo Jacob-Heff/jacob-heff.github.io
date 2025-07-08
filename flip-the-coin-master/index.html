@@ -38,27 +38,90 @@
     </style>
   </head>
   <body>
-    <div class="coin-container">
-      <div class="coin" id="coin">
-        <div class="side front">Head</div>
-        <div class="side back">Tail</div>
-      </div>
-      <button id="flip-button">Flip Coin</button>
+    <h1 style="text-align: center; margin-top: 20px">Flip a Coin Game</h1>
+    <h2 style="text-align: center; margin-top: 10px">Press the coin or the button to flip the coin</h2>
+    <div class="coin">
+      <img src="resources/heads.svg" alt="Coin Head" />
+      <img src="resources/tails.svg" alt="Coin Tail" />
     </div>
+    <div class="shadow">
+      <img src="resources/shadow.svg" alt="Coin Shadow" />
+    </div>
+    <p class="heads-or-tails" style="text-align: center; margin-top: 10px">
+      Heads
+    </p>
+    <button style="display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px;">
+      Random
+    </button>
+    <style>
+      .coin {
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        cursor: pointer;
+      }
+
+      .coin img {
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        cursor: pointer;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .coin img:first-child {
+        display: block;
+      }
+
+      .coin img:last-child {
+        display: none;
+      }
+
+      .shadow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .shadow img {
+        width: 100px;
+        height: 100px;
+        opacity: 0.5;
+      }
+
+      button {
+        background-color: #4f46e5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #4338ca;
+      }
+    </style>
     <script>
-      const coin = document.getElementById("coin");
-      const flipButton = document.getElementById("flip-button");
+      const coin = document.querySelector('.coin');
+      const button = document.querySelector('button');
+      const heads = 'resources/heads.svg';
+      const tails = 'resources/tails.svg';
+      const headsOrTailsText = document.querySelector('.heads-or-tails');
 
-      flipButton.addEventListener("click", () => {
-        const randomSide = Math.random() < 0.5 ? "front" : "back";
-        coin.className = `coin ${randomSide}`;
-      });
+      function flipCoin() {
+        const randomSide = Math.random() < 0.5 ? heads : tails;
+        coin.querySelectorAll('img').forEach((img) => {
+          img.style.display = 'none';
+        });
+        coin.querySelector(`img[src="${randomSide}"]`).style.display = 'block';
+        headsOrTailsText.textContent = randomSide === heads ? 'Heads' : 'Tails';
+      }
 
-      coin.addEventListener("click", () => {
-        const randomSide = Math.random() < 0.5 ? "front" : "back";
-        coin.className = `coin ${randomSide}`;
-      });
+      button.addEventListener('click', flipCoin);
+      coin.addEventListener('click', flipCoin);
     </script>
+    <button style="display: none;">Random</button>
+
     <!-- 
 
     Flip a Coin Game
