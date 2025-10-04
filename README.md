@@ -1,4 +1,4 @@
-# Jacob Heff - Portfolio Website
+# Jacob Heff - Digital Business Consultant - Portfolio Website
 
 Personal portfolio website showcasing my projects, skills, and journey in technology development.
 
@@ -15,10 +15,7 @@ Visit the live site at: [https://jacob-heff.github.io](https://jacob-heff.github
 
 ## 📱 Projects Featured
 
-- **Man Hour Counter**: Time tracking web application
-- **Task Manager**: Kanban-style project management tool
-- **Flip the Coin**: Interactive coin flipping game
-- **CSV Viewer**: Data visualization and analysis tool
+
 
 ## 🛠️ Technologies Used
 
