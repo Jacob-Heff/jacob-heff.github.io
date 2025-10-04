@@ -13,7 +13,6 @@ Visit the live site at: [https://jacob-heff.github.io](https://jacob-heff.github
 - **Contact Information**: Embedded email and phone number to prevent scraping
 - **Social Media Links**: Easy access to GitHub, Twitter, and Facebook profiles
 - **Clean UI**: Modern and professional design
-- **GitHub Pages Ready**: Optimized for GitHub Pages deployment
 
 ## 📱 Projects Featured
 
@@ -30,29 +29,6 @@ Visit the live site at: [https://jacob-heff.github.io](https://jacob-heff.github
 - Google Fonts
 - Jekyll (GitHub Pages)
 
-## 🔧 Local Development
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Jacob-Heff/jacob-heff.github.io.git
-```
-
-2. Navigate to the project directory:
-```bash
-cd jacob-heff.github.io
-```
-
-3. Open `index.html` in your browser or serve it locally:
-```bash
-# Using Python 3
-python -m http.server 8000
-
-# Using Node.js (http-server)
-npx http-server
-```
-
-4. Visit `http://localhost:8000` in your browser
-
 ## 📞 Contact
 
 - **Email**: [heffingtonj21@gmail.com](mailto:heffingtonj21@gmail.com)
@@ -63,4 +39,4 @@ npx http-server
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is closed and is not available for local development or redistribution. All rights reserved.
