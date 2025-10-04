@@ -8,14 +8,18 @@ Visit the live site at: [https://jacob-heff.github.io](https://jacob-heff.github
 ## 🚀 Features
 
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
-- **Project Showcase**: Interactive portfolio section with filter functionality
-- **Contact Information**: Easy ways to get in touch
+- **Project Showcase**: Placeholder projects to be updated with real-world examples
+- **Blog Section**: Placeholder blog posts to share insights and tips
+- **Contact Information**: Embedded email and phone number to prevent scraping
+- **Social Media Links**: Easy access to GitHub, Twitter, and Facebook profiles
 - **Clean UI**: Modern and professional design
 - **GitHub Pages Ready**: Optimized for GitHub Pages deployment
 
 ## 📱 Projects Featured
 
-
+- Placeholder Project 1: A responsive website for a local business
+- Placeholder Project 2: IT infrastructure setup for a non-profit organization
+- Placeholder Project 3: Custom cybersecurity audit for a small business
 
 ## 🛠️ Technologies Used
 
@@ -49,16 +53,10 @@ npx http-server
 
 4. Visit `http://localhost:8000` in your browser
 
-## 📝 Template Credit
-
-This website is built using the Tinker Template from TemplatesMo:
-- Template: [Tinker Template](http://www.templatemo.com/tm-506-tinker)
-- Customized and enhanced for personal use
-
 ## 📞 Contact
 
-- **Email**: heffingtonj21@gmail.com
-- **Phone**: 501-478-7833
+- **Email**: [heffingtonj21@gmail.com](mailto:heffingtonj21@gmail.com)
+- **Phone**: [+1 (501) 478-7833](tel:+15014787833)
 - **GitHub**: [Jacob-Heff](https://github.com/Jacob-Heff/)
 - **Twitter**: [@20The_Man](https://x.com/20The_Man)
 - **Facebook**: [Profile](https://www.facebook.com/profile.php?id=100089766827930)
