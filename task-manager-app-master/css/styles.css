@@ -1069,6 +1069,17 @@ footer {
   }
 }
 
+/* Hide sidebar on mobile devices */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .floating-toggle {
+    display: flex;
+  }
+}
+
 @media (max-width: 480px) {
   .sidebar {
     width: 100vw;
