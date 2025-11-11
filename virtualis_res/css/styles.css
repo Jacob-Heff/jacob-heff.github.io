@@ -10912,10 +10912,19 @@ body:before {
   }
 }
 
-.tabs {
+/* .tabs {
   position: relative;
   z-index: 2;
+} */
+
+.tabs {
+  position: fixed;
+  top: 1rem;         /* distance from top */
+  left: 50%;         /* center horizontally */
+  transform: translateX(-50%);
+  z-index: 1000;     /* keep it above content */
 }
+
 .tabs .btn span {
   font-size: 0.85rem;        /* text size */
   font-weight: 600;          /* boldness */
