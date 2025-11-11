@@ -10862,7 +10862,7 @@ body:before {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  padding-left: 20rem;
+  padding-left: 2rem;
   max-width: 75vw;
   overflow: hidden;
 }
@@ -10890,6 +10890,9 @@ body:before {
 
 /* Large screens: apply skew + clip-path */
 @media (min-width: 900px) {
+  .masthead {
+    padding-left: 20rem;
+  }
   .masthead:before {
     transform: skewX(-9deg);
     transform-origin: top right;
