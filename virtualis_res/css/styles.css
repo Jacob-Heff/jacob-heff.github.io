@@ -10863,6 +10863,7 @@ body:before {
   justify-content: flex-start;
   height: 100vh;
   padding-left: 2rem;
+  padding-top: 10rem;
   max-width: 75vw;
   overflow: hidden;
 }
