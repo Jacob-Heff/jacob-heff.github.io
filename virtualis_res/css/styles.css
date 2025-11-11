@@ -10893,6 +10893,7 @@ body:before {
 @media (min-width: 900px) {
   .masthead {
     padding-left: 20rem;
+    padding-top: 0;
   }
   .masthead:before {
     transform: skewX(-9deg);
