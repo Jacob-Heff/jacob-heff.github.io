@@ -10964,3 +10964,24 @@ body:before {
     height: 100%;
   }
 }
+
+@media (pointer: coarse) and (hover: none) {
+    .tabs {
+    position: fixed;
+    top: 0;
+    left: 2.5rem;
+    height: 100%;
+    width: auto;
+    background: transparent;      /* transparent so it doesn’t block masthead */
+    box-shadow: none;
+    backdrop-filter: none;
+    padding: 0;
+  }
+
+  .tabs .d-flex {
+    flex-direction: column;       /* stack vertically */
+    justify-content: center;      /* center vertically */
+    align-items: center;
+    height: 100%;
+  }
+}
