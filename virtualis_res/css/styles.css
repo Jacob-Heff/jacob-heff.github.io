@@ -10862,7 +10862,7 @@ body:before {
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  padding-left: 2rem;
+  padding-left: 6rem;
   max-width: 75vw;
   overflow: hidden;
 }
