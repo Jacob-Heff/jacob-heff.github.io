@@ -1,0 +1,51 @@
+/* General Styles */
+body {
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Header */
+.header {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    padding: 1rem;
+}
+
+.nav-link {
+    color: #fff;
+    margin: 0 0.5rem;
+}
+
+.nav-link:hover {
+    color: #ffc107;
+}
+
+/* Sections */
+section {
+    padding: 3rem 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1rem 0;
+}
