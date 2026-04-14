@@ -434,7 +434,7 @@
                                 </div>
                                 <div class="col-md-12">
                                   <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Message</button>
+                                    <button type="button" id="form-submit" class="btn">Send Message</button>
                                   </fieldset>
                                 </div>
                             </div>
@@ -497,6 +497,11 @@
         $('#nav-toggle').on('click', function (event) {
             event.preventDefault();
             $('#main-nav').toggleClass("open");
+        });
+        // submit only when actual button is clicked
+        $('#form-submit').on('click', function (event) {
+            event.preventDefault();
+            $('#contact').submit();
         });
     });
     // scroll function
