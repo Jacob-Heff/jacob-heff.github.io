@@ -649,19 +649,6 @@ color: #f7c552!important;
 	transition: all 0.5s;
 }
 
-.contact-info ul li a {
-	display: inline-block;
-	width: 28px;
-	height: 28px;
-	line-height: 28px;
-	text-align: center;
-	background-color: #fff;
-	border-radius: 50%;
-	color: #373a3c;
-	font-size: 15px;
-	transition: all 0.3s;
-}
-
 
 footer {
 	margin-top: -6px;
@@ -739,33 +726,6 @@ footer .location ul li:first-child {
 	color: #fff;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
-	margin-bottom: 30px;
-}
-
-.contact-info ul li {
-	font-size: 13px;
-	color: #fff;
-	display: inline-block;
-	line-height: 24px;
-	letter-spacing: 0.5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	font-weight: 300;
-	margin-bottom: -15px;
-}
-
-.contact-info ul li em {
-	font-style: normal;
-	font-weight: 500;
-}
-
-.contact-info h4 {
-	margin-top: 0px;
-	font-size: 13px;
-	font-weight: 500;
-	color: #fff;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
 	margin-bottom: 35px;
 }
 
@@ -787,6 +747,22 @@ footer .location ul li:first-child {
 	transition: all 0.3s;
 }
 .contact-info ul li a:hover {
+	background-color: #f7c552;
+}
+
+.contact-info ul li i {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 50%;
+	color: #373a3c;
+	font-size: 15px;
+	transition: all 0.3s;
+}
+.contact-info ul li i:hover {
 	background-color: #f7c552;
 }
 
