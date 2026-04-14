@@ -780,8 +780,11 @@ footer .connect-us ul li {
 	display: inline-block;
 	margin-right: 2px;
 }
+footer .connect-us ul li a:hover {
+	background-color: #f7c552;
+}
 
-footer .connect-us ul li a {
+footer .connect-us a {
 	display: inline-block;
 	width: 28px;
 	height: 28px;
@@ -793,9 +796,10 @@ footer .connect-us ul li a {
 	font-size: 15px;
 	transition: all 0.3s;
 }
-footer .connect-us ul li a:hover {
+footer .connect-us a:hover {
 	background-color: #f7c552;
 }
+
 
 
 /* RESPONSIVE */
