@@ -759,6 +759,37 @@ footer .location ul li:first-child {
 	font-weight: 500;
 }
 
+.contact-info h4 {
+	margin-top: 0px;
+	font-size: 13px;
+	font-weight: 500;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 35px;
+}
+
+.contact-info ul li {
+	display: inline-block;
+	margin-right: 2px;
+}
+
+.contact-info ul li a {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 50%;
+	color: #373a3c;
+	font-size: 15px;
+	transition: all 0.3s;
+}
+.contact-info ul li a:hover {
+	background-color: #f7c552;
+}
+
 footer .connect-us h4 {
 	margin-top: 0px;
 	font-size: 13px;
