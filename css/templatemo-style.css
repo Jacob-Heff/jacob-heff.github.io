@@ -649,7 +649,18 @@ color: #f7c552!important;
 	transition: all 0.5s;
 }
 
-
+.contact-info ul li a {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 50%;
+	color: #373a3c;
+	font-size: 15px;
+	transition: all 0.3s;
+}
 
 
 footer {
@@ -721,7 +732,7 @@ footer .location ul li:first-child {
 	border-right: 1px solid rgba(250, 250, 250, 0.1);
 }
 
-footer .contact-info h4 {
+.contact-info h4 {
 	margin-top: 0px;
 	font-size: 13px;
 	font-weight: 500;
@@ -731,7 +742,7 @@ footer .contact-info h4 {
 	margin-bottom: 30px;
 }
 
-footer .contact-info ul li {
+.contact-info ul li {
 	font-size: 13px;
 	color: #fff;
 	display: inline-block;
@@ -743,7 +754,7 @@ footer .contact-info ul li {
 	margin-bottom: -15px;
 }
 
-footer .contact-info ul li em {
+.contact-info ul li em {
 	font-style: normal;
 	font-weight: 500;
 }
@@ -871,13 +882,13 @@ footer .connect-us ul li a:hover {
 		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
 	}
 
-	footer .contact-info {
+	.contact-info {
 		margin-bottom: 30px;
 		padding-bottom: 30px;
 		border-bottom: 1px solid rgba(250, 250, 250, 0.1);
 	}
 
-	footer .contact-info ul li {
+	.contact-info ul li {
 		margin-right: 10px;
 		margin-left: 10px;
 	}
