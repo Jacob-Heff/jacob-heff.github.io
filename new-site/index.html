@@ -256,7 +256,7 @@ async function submitEmail() {
         return;
     }
 
-    await fetch("YOUR_APPS_SCRIPT_URL_HERE", {
+    await fetch("https://script.google.com/macros/s/AKfycbxB30cOxqyZvYbd75Cn1Ea2nV_ta4uNgKrF_IZcWb2-wEWNV5PV4oSE60nT1WV5nDu2/exec", {
         method: "POST",
         body: JSON.stringify({
             email: email,
