@@ -225,12 +225,11 @@
                                         placeholder="Email address..."
                                         required />
 
-                                    <button class="btn btn-outline-light"
-                                            type="button"
-                                            onclick="submitEmail()">
-                                        Sign up
-                                    </button>
-
+                                <button class="btn btn-outline-light"
+                                        type="button"
+                                        onclick="submitEmail()">
+                                    Sign up
+                                </button>
                                 </div>
 
                                 <!-- Honeypot (hidden from users, bots may fill it) -->
@@ -243,37 +242,45 @@
                             </div>
                         </div>
                     </aside>
-                    <script>
-                    async function submitEmail() {
-                        const email = document.getElementById("emailInput").value;
-                        const hp = document.getElementById("hp").value;
+                    <script type="module">
+                    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+                    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-                        if (!email) {
-                            alert("Please enter an email");
-                            return;
-                        }
+                    const firebaseConfig = {
+                    apiKey: "AIzaSyBMu9DrY3y6fChCD3kDWpEhr-F1oCvy4PQ",
+                    authDomain: "newsletter-form-b33cb.firebaseapp.com",
+                    projectId: "newsletter-form-b33cb",
+                    storageBucket: "newsletter-form-b33cb.firebasestorage.app",
+                    messagingSenderId: "392640106323",
+                    appId: "1:392640106323:web:5ea32b136b4b13fca99ba6"
+                    };
 
-                        const response = await fetch("https://script.google.com/macros/s/AKfycbxB30cOxqyZvYbd75Cn1Ea2nV_ta4uNgKrF_IZcWb2-wEWNV5PV4oSE60nT1WV5nDu2/exec", {
-                            method: "POST",
-                            body: JSON.stringify({
-                                email: email,
-                                hp: hp
-                            })
+                    const app = initializeApp(firebaseConfig);
+                    const db = getFirestore(app);
+
+                    window.submitEmail = async function () {
+                    const email = document.getElementById("emailInput").value.toLowerCase().trim();
+
+                    if (!email.includes("@")) {
+                        alert("Invalid email");
+                        return;
+                    }
+
+                    try {
+                        // 🔥 THIS IS THE KEY PART
+                        // email becomes UNIQUE ID → duplicates impossible
+                        await setDoc(doc(db, "users", email), {
+                        created: new Date()
                         });
 
-                        const result = await response.text();
+                        alert("Thanks for signing up!");
 
-                        if (result === "Duplicate") {
-                            alert("You're already subscribed!");
-                        } else if (result === "Bot blocked") {
-                            alert("Request blocked.");
-                        } else if (result === "Success") {
-                            alert("Thanks for signing up!");
-                            document.getElementById("emailInput").value = "";
-                        } else {
-                            alert("Something went wrong.");
-                        }
+                        document.getElementById("emailInput").value = "";
+
+                    } catch (e) {
+                        alert("Already subscribed!");
                     }
+                    };
                     </script>
                 </div>
             </section>
