@@ -205,43 +205,30 @@
                         </div>
                     </div>
                     <!-- Call to action-->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<div class="input-group mb-2">
+    <input id="email" class="form-control" type="email" placeholder="Email address...">
 
-<div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
-     data-callback="handleLogin">
+    <!-- hidden honeypot field (bots fill this, humans don't) -->
+    <input id="hp" type="text" style="display:none">
+
+    <button class="btn btn-outline-light" onclick="submitEmail()">
+        Sign up
+    </button>
 </div>
 
-<div class="g_id_signin"></div>
-
-<input id="emailInput" class="form-control" placeholder="Email">
-<button onclick="submitEmail()" class="btn btn-primary">Sign up</button>
-
 <script>
-let idToken = null;
-
-// called by Google login
-function handleLogin(response) {
-    idToken = response.credential;
-}
-
 async function submitEmail() {
-    if (!idToken) {
-        alert("Please sign in with Google first");
-        return;
-    }
-
-    const email = document.getElementById("emailInput").value;
+    const email = document.getElementById("email").value;
 
     await fetch("YOUR_APPS_SCRIPT_URL", {
         method: "POST",
         body: JSON.stringify({
-            token: idToken,
-            email: email
+            email: email,
+            hp: document.getElementById("hp").value
         })
     });
 
-    alert("Saved!");
+    alert("Thanks!");
 }
 </script>
                 </div>
