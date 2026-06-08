@@ -205,30 +205,67 @@
                         </div>
                     </div>
                     <!-- Call to action-->
-<div class="input-group mb-2">
-    <input id="email" class="form-control" type="email" placeholder="Email address...">
+<!-- Call to action -->
+<aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+        
+        <!-- Text -->
+        <div class="mb-4 mb-xl-0">
+            <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
+            <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
+        </div>
 
-    <!-- hidden honeypot field (bots fill this, humans don't) -->
-    <input id="hp" type="text" style="display:none">
+        <!-- Form -->
+        <div class="ms-xl-4">
 
-    <button class="btn btn-outline-light" onclick="submitEmail()">
-        Sign up
-    </button>
-</div>
+            <div class="input-group mb-2">
+                
+                <input id="emailInput"
+                       class="form-control"
+                       type="email"
+                       placeholder="Email address..."
+                       required />
 
+                <button class="btn btn-outline-light"
+                        type="button"
+                        onclick="submitEmail()">
+                    Sign up
+                </button>
+
+            </div>
+
+            <!-- Honeypot (hidden from users, bots may fill it) -->
+            <input id="hp" type="text" style="display:none">
+
+            <div class="small text-white-50">
+                We care about privacy, and will never share your data.
+            </div>
+
+        </div>
+    </div>
+</aside>
+
+<!-- Script -->
 <script>
 async function submitEmail() {
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("emailInput").value;
+    const hp = document.getElementById("hp").value;
 
-    await fetch("YOUR_APPS_SCRIPT_URL", {
+    if (!email) {
+        alert("Please enter an email");
+        return;
+    }
+
+    await fetch("YOUR_APPS_SCRIPT_URL_HERE", {
         method: "POST",
         body: JSON.stringify({
             email: email,
-            hp: document.getElementById("hp").value
+            hp: hp
         })
     });
 
-    alert("Thanks!");
+    alert("Thanks for signing up!");
+    document.getElementById("emailInput").value = "";
 }
 </script>
                 </div>
