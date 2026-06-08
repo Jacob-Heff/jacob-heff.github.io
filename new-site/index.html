@@ -206,46 +206,6 @@
                     </div>
                     <!-- Call to action-->
 <!-- Call to action -->
-<aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-        
-        <!-- Text -->
-        <div class="mb-4 mb-xl-0">
-            <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
-            <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
-        </div>
-
-        <!-- Form -->
-        <div class="ms-xl-4">
-
-            <div class="input-group mb-2">
-                
-                <input id="emailInput"
-                       class="form-control"
-                       type="email"
-                       placeholder="Email address..."
-                       required />
-
-                <button class="btn btn-outline-light"
-                        type="button"
-                        onclick="submitEmail()">
-                    Sign up
-                </button>
-
-            </div>
-
-            <!-- Honeypot (hidden from users, bots may fill it) -->
-            <input id="hp" type="text" style="display:none">
-
-            <div class="small text-white-50">
-                We care about privacy, and will never share your data.
-            </div>
-
-        </div>
-    </div>
-</aside>
-
-<!-- Script -->
 <script>
 async function submitEmail() {
     const email = document.getElementById("emailInput").value;
@@ -256,16 +216,29 @@ async function submitEmail() {
         return;
     }
 
-    await fetch("https://script.google.com/macros/s/AKfycbxB30cOxqyZvYbd75Cn1Ea2nV_ta4uNgKrF_IZcWb2-wEWNV5PV4oSE60nT1WV5nDu2/exec", {
+    const response = await fetch("YOUR_APPS_SCRIPT_URL", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             email: email,
             hp: hp
         })
     });
 
-    alert("Thanks for signing up!");
-    document.getElementById("emailInput").value = "";
+    const result = await response.text();
+
+    if (result === "Duplicate") {
+        alert("You're already subscribed!");
+    } else if (result === "Bot blocked") {
+        alert("Request blocked.");
+    } else if (result === "Success") {
+        alert("Thanks for signing up!");
+        document.getElementById("emailInput").value = "";
+    } else {
+        alert("Something went wrong.");
+    }
 }
 </script>
                 </div>
